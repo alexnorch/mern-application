@@ -1,0 +1,7 @@
+node_modules/
+public/
+.env
+
+client/node_modules
+client/src/assets/
+client/.gitignore
