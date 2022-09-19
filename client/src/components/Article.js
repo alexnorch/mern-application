@@ -1,17 +1,22 @@
 import StyledArticle from "./styles/Article.styled";
 import { useNavigate } from "react-router-dom";
 
-const Article = ({ title, description, image, id }) => {
+// { title, image, id, author, createdAt }
+
+const Article = ({ author, category, createdAt, description, image, title, _id }) => {
   const navigate = useNavigate()
+
   return (
-    <StyledArticle onClick={() => navigate(`/articles/${id}`)}>
+    <StyledArticle 
+    onClick={() => navigate(`/articles/${_id}`)}
+    >
       <div className="picture">
         <img src={image} alt={title} />
       </div>
       <div className="description">
         <h3>{title}</h3>
         <span className="divider"></span>
-        <p className="text">{description}</p>
+        <p>Created by {author.name}</p>
         <div className="bottom">
           <a className="link" href="/">
             Read more

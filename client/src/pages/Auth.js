@@ -25,6 +25,8 @@ const Auth = () => {
     }));
   };
 
+  
+
   const submitForm = (e) => {
     e.preventDefault();
 

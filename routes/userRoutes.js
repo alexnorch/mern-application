@@ -1,56 +1,45 @@
-import express from 'express'
-import { loginUser, registerUser, updateUser, deleteUser, getAllUsers, getUser, addCategory } from '../controllers/userController.js';
-import restrictTo from '../middlewares/restrict.js';
-import authenticate from '../middlewares/authenticate.js';
-import multer from 'multer'
-import AppError from '../utils/AppError.js';
+import express from "express";
+import userController from "../controllers/userController.js";
+import restrictTo from "../middlewares/restrict.js";
+import authenticate from "../middlewares/authenticate.js";
 
-const multerStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/img')
-    },
-    filename: (req, file, cb) => {
-        const { userId } = req.user
-        const ext = file.mimetype.split('/')[1]
-        
-        cb(null, `${userId}_${Date.now()}.${ext}`)
-    }
-})
+const router = express.Router();
 
-const multerFilter = (req, file, cb) => {
-    if (!file.mimetype.startsWith('image')) {
-        return cb(new AppError("Only images are accepted"), false)
-    }
-    
-    cb(null, true)
-}
+router.route("/register").post(userController.registerUser);
 
-const upload = multer({ 
-    storage: multerStorage, 
-    fileFilter: multerFilter })
-
-const router = express.Router()
+router.route("/login").post(userController.loginUser);
 
 router
-    .route('/register')
-    .post(registerUser)
+  .route("/")
+  .get(
+    authenticate,
+    restrictTo("admin", "moderator", "user"),
+    userController.getAllUsers
+  );
 
 router
-    .route('/login')
-    .post(loginUser)
+  .route("/:id")
+  .get(userController.getUser)
+  .delete(userController.deleteUser)
+  .patch(
+    authenticate,
+    userController.uploadPhoto,
+    userController.resizePhoto,
+    userController.updateUser
+  );
 
 router
-    .route('/')
-    .get(authenticate, restrictTo('admin', 'moderator', 'user'), getAllUsers)
+.route("/:id/confirm")
+.post(
+    authenticate, 
+    userController.confirmEmail);
 
 router
-    .route('/:id')
-    .patch(authenticate, upload.single('photo'), updateUser)
-    .get(getUser)
-    .delete(deleteUser)
+.route("/:token/verifyEmail")
+.get(userController.verifyEmail);
 
 router
-    .route('/:id/addCategory')
-    .patch(addCategory)
+.route("/:id/addCategory")
+.patch(userController.addCategory);
 
 export default router;

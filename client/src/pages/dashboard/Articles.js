@@ -1,19 +1,34 @@
 import StyledCategories from "../../components/styles/Categories.styled";
-import { Category, Articles as ArticleContainer, Search } from "../../components";
+import {
+  Category,
+  Articles as ArticleContainer,
+  Search,
+} from "../../components";
+import { useEffect } from "react";
+import { useAppContext } from "../../context/AppContext";
 
 // DUMMY DATA
-import { categories, articles } from "../../data";
+import { categories } from "../../data";
 
 const Articles = () => {
+  const { getArticles, articles, isLoading } = useAppContext();
+
+  useEffect(() => {
+    getArticles();
+  }, []);
+
+  // Loading....
   return (
     <>
       <Search />
       <StyledCategories>
         {categories.map((item) => (
-          <Category name={item.name} color={item.color} />
+          <Category key={item.name} name={item.name} color={item.color} />
         ))}
       </StyledCategories>
-      <ArticleContainer data={articles} />
+      {isLoading && <p>Spiner</p>}
+      {articles.length <= 0 && "There is no created articles"}
+      {articles.length > 0 && <ArticleContainer data={articles} />}
     </>
   );
 };

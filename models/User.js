@@ -11,16 +11,21 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide your email"],
   },
+  isEmailConfirmed: {
+    type: Boolean,
+    default: false
+  },
+  confirmString: {
+    type: Boolean,
+    select: false
+  },
   password: {
     type: String,
     maxlength: 20,
     select: false,
     required: [true, "Please provie your password"],
   },
-  photo: {
-    type: String,
-    default: 'https://icon-library.com/images/generic-user-icon/generic-user-icon-3.jpg'
-  },
+  photo: String,
   role: {
     type: String,
     enum: ["user", "moderator", "admin"],

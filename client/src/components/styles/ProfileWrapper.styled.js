@@ -18,6 +18,10 @@ const StyledProfileWrapper = styled.div`
       text-align: center;
     }
 
+    .confirmation {
+      margin-top: 10px;
+    }
+
     .image {
       width: 150px;
       height: 150px;

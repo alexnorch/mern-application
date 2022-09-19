@@ -13,13 +13,13 @@ const StyledNavigation = styled.div`
     background: ${({theme}) => theme.colors.secondary.white};
     z-index: 3;
 
-    &:hover .profile-menu {
+    &:hover ul {
       transform: translateY(0);
       opacity: 1;
     }
   }
 
-  .profile-menu {
+  ul {
     z-index: 1;
     opacity: 0;
     position: absolute;

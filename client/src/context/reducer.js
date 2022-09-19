@@ -1,21 +1,14 @@
-import {
-  AUTH_SUCCESS,
-  HIDE_ALERT,
-  LOGOUT_USER,
-  UPDATE_USER_SUCCESS,
-  LOADING,
-  ERROR,
-} from "./actions";
+import actions from "./actions";
 import { initialValues } from "./AppContext";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case LOADING:
+    case actions.LOADING:
       return {
         ...state,
         isLoading: true,
       };
-    case ERROR:
+    case actions.ERROR:
       return {
         ...state,
         showAlert: true,
@@ -23,17 +16,20 @@ const reducer = (state, action) => {
         alertType: "danger",
         alertText: action.payload.message,
       };
-    case AUTH_SUCCESS:
+    case actions.AUTH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         showAlert: true,
         alertType: "success",
-        alertText: "Successfully logged in!",
+        alertText:
+          action.payload.authType === "login"
+            ? "Successfully logged in!"
+            : "Successfully registated!",
         authToken: action.payload.token,
         user: action.payload.user,
       };
-    case UPDATE_USER_SUCCESS:
+    case actions.UPDATE_USER_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -42,7 +38,7 @@ const reducer = (state, action) => {
         alertText: "Successfully changed",
         user: action.payload.updatedUser,
       };
-    case HIDE_ALERT:
+    case actions.HIDE_ALERT:
       return {
         ...state,
         showAlert: false,
@@ -50,12 +46,44 @@ const reducer = (state, action) => {
         alertText: "",
         alertType: "",
       };
-    case LOGOUT_USER:
+    case actions.LOGOUT_USER:
       return {
         ...initialValues,
         user: null,
-        authToken: ''
-      }
+        authToken: "",
+      };
+    case actions.CONFIRMATION_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        alertType: "danger",
+        alertText: "Static text! Error!",
+        isEmailConfirmation: false,
+        showAlert: true,
+      };
+    case actions.CONFIRMATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        alertType: "success",
+        alertText: "Static text! Success!",
+        isEmailConfirmation: true,
+        showAlert: true,
+      };
+    case actions.ADD_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        alertType: "success",
+        alertText: "Static text! Success!",
+        showAlert: true,
+      };
+    case actions.GET_ARTICLES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        articles: action.payload.articles,
+      };
     default:
       return state;
   }

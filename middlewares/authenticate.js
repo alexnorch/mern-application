@@ -8,7 +8,7 @@ export const authenticate = (req, res, next) => {
     return next(new AppError("Access denied", 401));
   }
 
-  jwt.verify(token, "secretKey", (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) return next(new AppError("Invalid or expiered token", 401));
     req.user = decoded;
   });

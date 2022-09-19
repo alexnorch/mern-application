@@ -7,7 +7,7 @@ import { Alert, FileUploader, Input } from '../../components'
 // const getFilename = (fullPath) => fullPath.replace(/^.*[\\\/]/, '');
 
 const Details = () => {
-  const { user, updateUser, showAlert } = useAppContext();
+  const { user, updateUser, showAlert, isEmailConfirmation, confirmEmail } = useAppContext();
   const [userValues, setUserValues] = useState({
     name: user.name,
     email: user.email,
@@ -38,9 +38,6 @@ const Details = () => {
 
   return (
     <StyledForm>
-      {/* <InputGroup labelText="Role" value={user.role} disabled />
-      <InputGroup labelText="Your ID" value={user._id} disabled />
-      <div className="divider"></div> */}
       {showAlert && <Alert />}
       <FileUploader
         changeHandler={onChange}
@@ -60,7 +57,13 @@ const Details = () => {
         type="email"
         value={userValues.email}
         placeholder="Please enter your email"
+        disabled={user.isEmailConfirmed}
       />
+      {isEmailConfirmation && 
+      <Input
+        placeholder='Please enter a verify token'
+        labelText='Verify Token'
+        name='token'/>}
       <Input
         changeHandler={onChange}
         name="location"
