@@ -2,10 +2,13 @@ import StyledSelect from "./styles/Select.styled";
 
 const Select = ({ value, data, changeHandler, name }) => {
   return (
-    <StyledSelect name={name} onChange={changeHandler} value={value}>
-      {data.map((item, index) => (
-        <option key={index} value={item}>
-          {item}
+    <StyledSelect placeholder name={name} onChange={changeHandler} value={value}>
+      {data.length === 0 && <option selected>Please create category on profile section</option>}
+      {data.map((item) => (
+        <option
+          key={item._id} 
+          value={item.title}>
+          {item.title}
         </option>
       ))}
     </StyledSelect>

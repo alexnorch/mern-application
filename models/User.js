@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import Category from "./Category.js";
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -32,12 +33,7 @@ const UserSchema = new mongoose.Schema({
     default: "user",
   },
   articles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
-  categories: [
-    {
-      color: String,
-      name: String,
-    },
-  ],
+  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
 });
 
 UserSchema.pre("save", async function () {

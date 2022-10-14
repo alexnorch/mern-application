@@ -64,6 +64,8 @@ const useRichEditor = () => {
     }
   };
 
+
+  // Convert data into string
   const convertData = async (data) => {
     return await JSON.stringify(convertToRaw(data));
   }

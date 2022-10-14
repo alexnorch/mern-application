@@ -3,19 +3,18 @@
     border: 1px solid #ddd;
     font-family: sans-serif;
     font-size: 14px;
-    padding: 15px;
     margin-bottom: 20px;
-    height: 400px;
+    height: 320px;
     overflow: scroll;
     border: 2px solid rgba(0,0,0,0.2);
     border-radius: 3px;
+    position: relative;
   }
   
   .RichEditor-editor {
-    border-top: 1px solid #ddd;
     cursor: text;
     font-size: 16px;
-    margin-top: 10px;
+    padding: 0px 15px;
   }
   
   .RichEditor-editor .public-DraftEditorPlaceholder-root,
@@ -46,6 +45,14 @@
     font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
     font-size: 16px;
     padding: 20px;
+  }
+
+  .RichEditor-controlPanel {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 10px;
   }
   
   .RichEditor-controls {

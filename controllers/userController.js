@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import sharp from "sharp";
 import nodemailer from "nodemailer";
+import Category from '../models/Category.js'
 
 const multerStorage = multer.memoryStorage();
 
@@ -19,6 +20,8 @@ const upload = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
 });
+
+const uploadPhoto = upload.single("photo");
 
 var transport = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
@@ -64,7 +67,7 @@ const loginUser = async (req, res, next) => {
     return next(new AppError("Please provide all values", 400));
   }
 
-  const user = await User.findOne({ email }).select("+password +role");
+  const user = await User.findOne({ email }).select("+password +role").populate('categories');
 
   if (!user) {
     return next(new AppError("User with such data no exists", 400));
@@ -97,7 +100,7 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res, next) => {
   const { id } = req.params;
 
-  const user = await User.findOne({ id });
+  const user = await User.findOne({ id }).populate('categories')
 
   if (!user) {
     return next(new AppError("There is no user with this ID"), 400);
@@ -105,8 +108,6 @@ const getUser = async (req, res, next) => {
 
   res.status(200).json({ user });
 };
-
-// We need to add a refresh token when user is updated
 
 const updateUser = async (req, res, next) => {
   const { userId } = req.user;
@@ -125,29 +126,24 @@ const updateUser = async (req, res, next) => {
   res.status(200).json({ updatedUser });
 };
 
-const deleteUser = async (req, res) => {
-  res.status(200).json({ message: "delete user" });
-};
-
 const addCategory = async (req, res, next) => {
-  const { id: _id } = req.params;
-  const user = await User.findOne({ _id });
+  const userId = req.user.userId
+  
+  try {
+    const user = await User.findOne({ _id: userId });
 
-  const alreadyExists = user.categories.find(
-    (item) => item.name == req.body.name
-  );
+    const category = await Category.create({ user: userId, ...req.body })
+    
+    user.categories.push(category)
+    user.save()
 
-  if (alreadyExists) {
-    return next(new AppError("Category is already exist", 400));
+    await user.populate('categories')
+
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
   }
-
-  user.categories.push(req.body);
-  await user.save();
-
-  res.status(200).json({ user });
 };
-
-const uploadPhoto = upload.single("photo");
 
 const resizePhoto = async (req, res, next) => {
   if (!req.file) return next();
@@ -208,6 +204,10 @@ const verifyEmail = async (req, res, next) => {
 
     res.status(200).json({ message: "successfully confirmed!" });
   });
+};
+
+const deleteUser = async (req, res) => {
+  res.status(200).json({ message: "delete user" });
 };
 
 export default {

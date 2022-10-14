@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledArticles = styled.div`
   display: flex;
-  gap: 40px;
+  gap: 20px;
   flex-wrap: wrap;
 `;
 

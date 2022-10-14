@@ -61,6 +61,12 @@ const reducer = (state, action) => {
         isEmailConfirmation: false,
         showAlert: true,
       };
+    case actions.CONFIRMATION_EXPIRED:
+      return {
+        ...state,
+        isLoading: false,
+        isEmailConfirmation: false
+      }
     case actions.CONFIRMATION_SUCCESS:
       return {
         ...state,
@@ -83,6 +89,11 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         articles: action.payload.articles,
+      };
+    case actions.TOGGLE_MENU:
+      return {
+        ...state,
+        isMenuOpen: !state.isMenuOpen
       };
     default:
       return state;

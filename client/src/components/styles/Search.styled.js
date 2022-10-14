@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StyledSearch = styled.div`
   position: relative;
   display: inline-block;
-  margin-bottom: 20px;
   min-width: 480px;
 
   input {

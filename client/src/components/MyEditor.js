@@ -82,14 +82,16 @@ const MyEditor = ({
 
   return (
     <div className="RichEditor-root">
-      <BlockStyleControls
-        editorState={editorState}
-        onToggle={toggleBlockType}
-      />
-      <InlineStyleControls
-        editorState={editorState}
-        onToggle={toggleInlineStyle}
-      />
+      <div className="RichEditor-controlPanel">
+        <BlockStyleControls
+          editorState={editorState}
+          onToggle={toggleBlockType}
+        />
+        <InlineStyleControls
+          editorState={editorState}
+          onToggle={toggleInlineStyle}
+        />
+      </div>
       <div className={className}>
         <Editor
           blockStyleFn={getBlockStyle}

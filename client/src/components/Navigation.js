@@ -6,8 +6,8 @@ import { Logo } from "../components";
 import StyledNavigation from "./styles/Navigation.styled";
 
 const Navigation = () => {
-  const { user, logoutUser } = useAppContext();
-
+  const { user, logoutUser, toggleMenu, isMenuOpen } = useAppContext();
+  
   const srcImage =
     user.photo.length > 1
       ? `/${user.photo}`
@@ -15,7 +15,7 @@ const Navigation = () => {
 
   return (
     <StyledNavigation>
-      <Logo />
+      <Logo onClick={toggleMenu}/>
       <div className="profile">
         <div className="profile-image">
           <img src={srcImage} alt="User face displayed" />

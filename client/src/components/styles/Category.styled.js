@@ -6,7 +6,7 @@ const StyledCategory = styled.span`
   min-width: 100px;
   text-align: center;
   padding: 7px 0;
-  border-radius: 10px;
+  border-radius: 7px;
   font-size: 14px;
   color: ${({theme}) => theme.colors.primary.white};
   cursor: pointer;

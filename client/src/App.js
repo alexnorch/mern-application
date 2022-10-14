@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Home, Auth, NotFound, ProtectedRoute } from "./pages";
 import { Main, Articles, ArticleDetails, NewArticle, Schedule, DashboardWrapper } from "./pages/dashboard";
-import { Categories, Details, Password, ProfileWrapper } from "./pages/profile";
+import { MyCategories, Details, Password, ProfileWrapper } from "./pages/profile";
 
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="new-article" element={<NewArticle />} />
         <Route path="schedule" element={<Schedule />} />
         <Route path="profile" element={<ProfileWrapper />}>
-          <Route path="categories" element={<Categories />} />
+          <Route path="categories" element={<MyCategories />} />
           <Route path="details" element={<Details />} />
           <Route path="password" element={<Password />} />
         </Route>

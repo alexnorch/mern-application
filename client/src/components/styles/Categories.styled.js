@@ -4,7 +4,7 @@ const StyledCategories = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
+  margin: 10px 0px;
 `;
 
 export default StyledCategories;

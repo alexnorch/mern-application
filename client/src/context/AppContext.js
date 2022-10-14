@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import reducer from "./reducer";
@@ -10,18 +10,30 @@ const initialValues = {
   articles: [],
   isLoading: false,
   showAlert: false,
+  isMenuOpen: false,
   user: JSON.parse(localStorage.getItem("user")) || null,
   authToken: JSON.parse(localStorage.getItem("authToken")) || "",
   alertType: "",
   alertText: "",
-  isEmailConfirmation:
-    JSON.parse(localStorage.getItem("isEmailConfirmation")) || false,
+  isEmailConfirmation: JSON.parse(localStorage.getItem("isEmailConfirmation")) || false,
+  waitTime: 5000,
 };
 
 const AppContext = ({ children }) => {
   const [values, dispatch] = useReducer(reducer, initialValues);
   const navigate = useNavigate();
   const authAxios = axios.create();
+
+  useEffect(() => {
+    if (values.isEmailConfirmation) {
+      const initialTime = localStorage.getItem('initialTime')
+      let executionTime = parseInt(initialTime, 10) + values.waitTime - (new Date()).getTime();
+
+      if (executionTime > 0) {
+        confirmTimer(executionTime)
+      }
+    }
+  }, [])
 
   // Interceptors
   authAxios.interceptors.request.use(
@@ -46,6 +58,14 @@ const AppContext = ({ children }) => {
     }
   );
 
+  const confirmTimer = (time) => {
+    setTimeout(() => {
+      dispatch({ type: actions.CONFIRMATION_EXPIRED })
+      localStorage.removeItem("initialTime");
+      localStorage.setItem("isEmailConfirmation", JSON.stringify(false));
+    }, time);
+  }
+
   const hideAlert = () => {
     setTimeout(() => {
       dispatch({ type: actions.HIDE_ALERT });
@@ -67,7 +87,7 @@ const AppContext = ({ children }) => {
       addToLocalStorage(data);
       navigate("/");
     } catch (error) {
-      const message = error.response.data.message;
+      const message = error.response.data.message || error.message
       dispatch({ type: actions.ERROR, payload: { message } });
     }
 
@@ -111,7 +131,12 @@ const AppContext = ({ children }) => {
     try {
       await authAxios.post(`/api/user/${_id}/confirm`);
       dispatch({ type: actions.CONFIRMATION_SUCCESS });
+
       localStorage.setItem("isEmailConfirmation", JSON.stringify(true));
+      localStorage.setItem("initialTime", (new Date()).getTime());
+
+      confirmTimer(values.waitTime)
+
     } catch (error) {
       console.log(error);
       dispatch({ type: actions.CONFIRMATION_ERROR });
@@ -166,6 +191,30 @@ const AppContext = ({ children }) => {
     localStorage.removeItem("authToken");
   };
 
+  const addCategory = async (category) => {
+    try {
+      const { data } = await authAxios.patch(
+        `/api/user/${values.user._id}/addCategory`,
+        category
+      )
+
+      dispatch({
+        type: actions.UPDATE_USER_SUCCESS,
+        payload: { updatedUser: data.user }
+      })
+
+      localStorage.setItem("user", JSON.stringify(data.user));
+    } catch (error) {
+      console.log(error)
+      const message = error.response.data.message;
+      dispatch({ type: actions.ERROR, payload: { message } });
+    }
+  }
+
+  const toggleMenu = () => {
+    dispatch({ type: actions.TOGGLE_MENU })
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -176,6 +225,9 @@ const AppContext = ({ children }) => {
         confirmEmail,
         addNewArticle,
         getArticles,
+        addCategory,
+        toggleMenu,
+        authAxios
       }}
     >
       {children}

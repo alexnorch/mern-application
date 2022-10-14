@@ -5,10 +5,6 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: [true, "Title is required"],
   },
-  category: {
-    type: String,
-    required: [true, "Category is required"],
-  },
   description: {
     type: String,
     required: [true, "Description is required"],
@@ -20,6 +16,10 @@ const ArticleSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category"
   },
   createdAt: {
     type: Date,

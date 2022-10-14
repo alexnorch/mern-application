@@ -29,17 +29,19 @@ router
   );
 
 router
-.route("/:id/confirm")
-.post(
-    authenticate, 
+  .route("/:id/confirm")
+  .post(
+    authenticate,
     userController.confirmEmail);
 
 router
-.route("/:token/verifyEmail")
-.get(userController.verifyEmail);
+  .route("/:token/verifyEmail")
+  .get(userController.verifyEmail);
 
 router
-.route("/:id/addCategory")
-.patch(userController.addCategory);
+  .route("/:id/addCategory")
+  .patch(
+    authenticate,
+    userController.addCategory);
 
 export default router;

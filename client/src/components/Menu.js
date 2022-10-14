@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 // Components
 import StyledMenu from "./styles/Menu.styled";
+import { useAppContext } from "../context/AppContext";
 
 // Icons
 import { CgNotes } from "react-icons/cg";
@@ -10,8 +11,9 @@ import { MdOutlineSchedule } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 
 const Menu = () => {
-  return (
-    <StyledMenu>
+  const { isMenuOpen } = useAppContext()
+    return (
+    <StyledMenu isMenuOpen={isMenuOpen}>
       <ul>
         <li>
           <CgNotes />

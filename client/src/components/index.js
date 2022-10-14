@@ -10,6 +10,8 @@ import Navigation from "./Navigation";
 import Search from "./Search";
 import Select from "./Select";
 import MyEditor from './MyEditor'
+import Categories from "./Categories";
+import Spinner from "./Spinner";
 
 export {
   Alert,
@@ -23,5 +25,7 @@ export {
   Navigation,
   Search,
   Select,
-  MyEditor
+  MyEditor,
+  Categories,
+  Spinner
 };

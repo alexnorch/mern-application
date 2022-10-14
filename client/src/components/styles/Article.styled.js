@@ -1,44 +1,61 @@
 import styled from "styled-components";
 
 const StyledArticle = styled.div`
-  background-color: ${({theme}) => theme.colors.primary.white};
   border-radius: 15px;
-  flex-basis: calc(100% / 3 - 47px);
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  padding: 10px;
+  flex-basis: calc(100% / 4 - 15px);
+  min-height: 250px;
+  background: #fff;
+  overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 20px;
 
-  .picture {
-    border-radius: 10px;
-    overflow: hidden;
-    height: 70%;
-    transform: translateX(-30px);
-    box-shadow: 0 0 15px 2px ${({theme}) => theme.colors.primary.white};
-    flex-basis: 40%;
-    flex-shrink: 0;
+  @media (min-width: 480px) {
+    flex-basis: 100%
+  }
+
+  @media (min-width: 720px) {
+    flex-basis: calc(100% / 2 - 10px)
+  }
+
+  @media (min-width: 990px) {
+    flex-basis: calc(100% / 3 - 14px)
+  }
+
+  @media (min-width: 1190px) {
+    flex-basis: calc(100% / 4 - 15px)
+  }
+  
+  .top {
+    height: 150px;
+    margin-bottom: 10px;
 
     img {
-      object-fit: cover;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
 
-  .description: {
-    flex-basis: 60%;
+  h3 {
+    margin-top: 10px;
   }
 
-  .text {
-    font-size: 14px;
+  .descr {
     color: gray;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .middle {
+    margin-bottom: 10px;
+    padding: 0 10px;
   }
 
   .bottom {
-    text-align: right;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .link {
@@ -52,23 +69,10 @@ const StyledArticle = styled.div`
     font-size: 14px;
   }
 
-  &:hover {
-    background: ${({theme}) => theme.colors.secondary.shamrock};
-  }
-
-  &:hover .link {
-    background: ${({theme}) => theme.colors.primary.white};
-    color: ${({theme}) => theme.colors.secondary.shamrock};
-  }
-
-  &:hover .picture {
-    box-shadow: 0 0 15px 2px ${({theme}) => theme.colors.primary.white};
-  }
-
-  &:hover .text,
-  &:hover h3 {
-    color: ${({theme}) => theme.colors.primary.white};
-  }
 `;
 
 export default StyledArticle;
+
+
+
+  

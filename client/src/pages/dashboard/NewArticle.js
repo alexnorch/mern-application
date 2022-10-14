@@ -7,8 +7,6 @@ import { EditorState, ContentState } from 'draft-js'
 import StyledNewArticle from "../../components/styles/NewArticle.styled";
 import { Input, Select, Alert, MyEditor } from "../../components";
 
-const categories = ["Sport", "Programming", "Education"];
-
 const initialValues = {
   title: "",
   image: "",
@@ -17,7 +15,7 @@ const initialValues = {
 
 const NewArticle = () => {
   const [userValues, setUserValues] = useState(initialValues);
-  const { addNewArticle, showAlert } = useAppContext();
+  const { addNewArticle, showAlert, user } = useAppContext();
   const {
     editorState,
     setEditorState,
@@ -47,7 +45,6 @@ const NewArticle = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    
     const editorData = editorState.getCurrentContent();
     const stringData = await convertData(editorData);
     const newState = EditorState.push(editorState, ContentState.createFromText(''));
@@ -79,7 +76,7 @@ const NewArticle = () => {
           name="category"
           value={userValues.category}
           changeHandler={onChangeHandler}
-          data={categories}
+          data={user.categories}
         />
         <MyEditor
           editorState={editorState}
