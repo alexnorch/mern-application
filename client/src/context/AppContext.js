@@ -15,7 +15,8 @@ const initialValues = {
   authToken: JSON.parse(localStorage.getItem("authToken")) || "",
   alertType: "",
   alertText: "",
-  isEmailConfirmation: JSON.parse(localStorage.getItem("isEmailConfirmation")) || false,
+  isEmailConfirmation:
+    JSON.parse(localStorage.getItem("isEmailConfirmation")) || false,
   waitTime: 5000,
 };
 
@@ -26,14 +27,15 @@ const AppContext = ({ children }) => {
 
   useEffect(() => {
     if (values.isEmailConfirmation) {
-      const initialTime = localStorage.getItem('initialTime')
-      let executionTime = parseInt(initialTime, 10) + values.waitTime - (new Date()).getTime();
+      const initialTime = localStorage.getItem("initialTime");
+      let executionTime =
+        parseInt(initialTime, 10) + values.waitTime - new Date().getTime();
 
       if (executionTime > 0) {
-        confirmTimer(executionTime)
+        confirmTimer(executionTime);
       }
     }
-  }, [])
+  }, []);
 
   // Interceptors
   authAxios.interceptors.request.use(
@@ -60,11 +62,11 @@ const AppContext = ({ children }) => {
 
   const confirmTimer = (time) => {
     setTimeout(() => {
-      dispatch({ type: actions.CONFIRMATION_EXPIRED })
+      dispatch({ type: actions.CONFIRMATION_EXPIRED });
       localStorage.removeItem("initialTime");
       localStorage.setItem("isEmailConfirmation", JSON.stringify(false));
     }, time);
-  }
+  };
 
   const hideAlert = () => {
     setTimeout(() => {
@@ -87,7 +89,7 @@ const AppContext = ({ children }) => {
       addToLocalStorage(data);
       navigate("/");
     } catch (error) {
-      const message = error.response.data.message || error.message
+      const message = error.response.data.message || error.message;
       dispatch({ type: actions.ERROR, payload: { message } });
     }
 
@@ -133,10 +135,9 @@ const AppContext = ({ children }) => {
       dispatch({ type: actions.CONFIRMATION_SUCCESS });
 
       localStorage.setItem("isEmailConfirmation", JSON.stringify(true));
-      localStorage.setItem("initialTime", (new Date()).getTime());
+      localStorage.setItem("initialTime", new Date().getTime());
 
-      confirmTimer(values.waitTime)
-
+      confirmTimer(values.waitTime);
     } catch (error) {
       console.log(error);
       dispatch({ type: actions.CONFIRMATION_ERROR });
@@ -158,7 +159,10 @@ const AppContext = ({ children }) => {
       dispatch({ type: actions.ADD_ARTICLE_SUCCESS });
     } catch (error) {
       console.log(error);
-      dispatch({ type: actions.ERROR, payload: { message: error.response.data.msg } });
+      dispatch({
+        type: actions.ERROR,
+        payload: { message: error.response.data.msg },
+      });
     }
 
     hideAlert();
@@ -174,7 +178,6 @@ const AppContext = ({ children }) => {
         type: actions.GET_ARTICLES_SUCCESS,
         payload: { articles: data.articles },
       });
-
     } catch (error) {
       console.log(error);
       dispatch({ type: actions.ERROR });
@@ -196,24 +199,24 @@ const AppContext = ({ children }) => {
       const { data } = await authAxios.patch(
         `/api/user/${values.user._id}/addCategory`,
         category
-      )
+      );
 
       dispatch({
         type: actions.UPDATE_USER_SUCCESS,
-        payload: { updatedUser: data.user }
-      })
+        payload: { updatedUser: data.user },
+      });
 
       localStorage.setItem("user", JSON.stringify(data.user));
     } catch (error) {
-      console.log(error)
+      console.log(error);
       const message = error.response.data.message;
       dispatch({ type: actions.ERROR, payload: { message } });
     }
-  }
+  };
 
   const toggleMenu = () => {
-    dispatch({ type: actions.TOGGLE_MENU })
-  }
+    dispatch({ type: actions.TOGGLE_MENU });
+  };
 
   return (
     <MyContext.Provider
@@ -227,7 +230,7 @@ const AppContext = ({ children }) => {
         getArticles,
         addCategory,
         toggleMenu,
-        authAxios
+        authAxios,
       }}
     >
       {children}

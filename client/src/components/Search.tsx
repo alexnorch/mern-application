@@ -1,7 +1,8 @@
+import React from "react";
 import StyledSearch from "./styles/Search.styled";
 import { GoSearch } from "react-icons/go";
 
-const Search = () => {
+const Search: React.FC = () => {
   return (
     <StyledSearch>
       <input type="text" />

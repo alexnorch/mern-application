@@ -11,6 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.8",
+    "@types/react-dom": "^18.2.4",
     "bcryptjs": "^2.4.3",
     "concurrently": "^7.3.0",
     "dotenv": "^16.0.1",
@@ -21,6 +25,7 @@
     "nodemailer": "^6.7.8",
     "nodemon": "^2.0.19",
     "randomstring": "^1.2.2",
-    "sharp": "^0.30.7"
+    "sharp": "^0.30.7",
+    "typescript": "^5.1.3"
   }
 }

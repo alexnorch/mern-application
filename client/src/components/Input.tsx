@@ -1,6 +1,17 @@
+import React from "react";
 import StyledInput from "./styles/Input.styled";
 
-const Input = ({
+interface Props {
+  value: string;
+  name: string;
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  labelText?: string;
+}
+
+const Input: React.FC<Props> = ({
   value,
   changeHandler,
   name,

@@ -5,7 +5,7 @@ const Main = () => {
       <p>grafik</p>
       <p>adding new post</p>
     </div>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;

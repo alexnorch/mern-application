@@ -9,21 +9,21 @@ const StyledArticle = styled.div`
   cursor: pointer;
 
   @media (min-width: 480px) {
-    flex-basis: 100%
+    flex-basis: 100%;
   }
 
   @media (min-width: 720px) {
-    flex-basis: calc(100% / 2 - 10px)
+    flex-basis: calc(100% / 2 - 10px);
   }
 
   @media (min-width: 990px) {
-    flex-basis: calc(100% / 3 - 14px)
+    flex-basis: calc(100% / 3 - 14px);
   }
 
   @media (min-width: 1190px) {
-    flex-basis: calc(100% / 4 - 15px)
+    flex-basis: calc(100% / 4 - 15px);
   }
-  
+
   .top {
     height: 150px;
     margin-bottom: 10px;
@@ -63,16 +63,11 @@ const StyledArticle = styled.div`
     margin-top: 10px;
     text-decoration: none;
     color: #fff;
-    background: ${({theme}) => theme.colors.secondary.shamrock};
+    background: ${({ theme }) => theme.colors.secondary.shamrock};
     padding: 7px 10px;
     border-radius: 10px;
     font-size: 14px;
   }
-
 `;
 
 export default StyledArticle;
-
-
-
-  

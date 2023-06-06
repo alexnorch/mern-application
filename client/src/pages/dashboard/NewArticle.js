@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useRichEditor from "../../hooks/useRichEditor";
 import { useAppContext } from "../../context/AppContext";
-import { EditorState, ContentState } from 'draft-js'
+import { EditorState, ContentState } from "draft-js";
 
 // Components
 import StyledNewArticle from "../../components/styles/NewArticle.styled";
@@ -29,12 +29,6 @@ const NewArticle = () => {
     blockTypes,
   } = useRichEditor();
 
-  // Create function onChangeHandler in helpers folder
-  // Create function onChangeHandler in helpers folder
-  // Create function onChangeHandler in helpers folder
-  // Create function onChangeHandler in helpers folder
-  // Create function onChangeHandler in helpers folder
-
   const onChangeHandler = (e) => {
     setUserValues((prevState) => ({
       ...prevState,
@@ -47,13 +41,16 @@ const NewArticle = () => {
 
     const editorData = editorState.getCurrentContent();
     const stringData = await convertData(editorData);
-    const newState = EditorState.push(editorState, ContentState.createFromText(''));
+    const newState = EditorState.push(
+      editorState,
+      ContentState.createFromText("")
+    );
 
     userValues.description = stringData;
 
-    addNewArticle(userValues)
-    setUserValues(initialValues)
-    setEditorState(newState)
+    addNewArticle(userValues);
+    setUserValues(initialValues);
+    setEditorState(newState);
   };
 
   return (

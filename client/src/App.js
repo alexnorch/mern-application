@@ -1,7 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import { Home, Auth, NotFound, ProtectedRoute } from "./pages";
-import { Main, Articles, ArticleDetails, NewArticle, Schedule, DashboardWrapper } from "./pages/dashboard";
-import { MyCategories, Details, Password, ProfileWrapper } from "./pages/profile";
+import {
+  Main,
+  Articles,
+  ArticleDetails,
+  NewArticle,
+  Schedule,
+  DashboardWrapper,
+} from "./pages/dashboard";
+import {
+  MyCategories,
+  Details,
+  Password,
+  ProfileWrapper,
+} from "./pages/profile";
 
 const App = () => {
   return (

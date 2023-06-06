@@ -2,17 +2,18 @@ import styled from "styled-components";
 
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { Alert, FileUploader, Input } from '../../components'
+import { Alert, FileUploader, Input } from "../../components";
 
 // const getFilename = (fullPath) => fullPath.replace(/^.*[\\\/]/, '');
 
 const Details = () => {
-  const { user, updateUser, showAlert, isEmailConfirmation, confirmEmail } = useAppContext();
+  const { user, updateUser, showAlert, isEmailConfirmation, confirmEmail } =
+    useAppContext();
   const [userValues, setUserValues] = useState({
     name: user.name,
     email: user.email,
     location: user.location || "Your location",
-    photo: null
+    photo: null,
   });
 
   const onChange = (e) => {
@@ -59,11 +60,13 @@ const Details = () => {
         placeholder="Please enter your email"
         disabled={user.isEmailConfirmed}
       />
-      {isEmailConfirmation && 
-      <Input
-        placeholder='Please enter a verify token'
-        labelText='Verify Token'
-        name='token'/>}
+      {isEmailConfirmation && (
+        <Input
+          placeholder="Please enter a verify token"
+          labelText="Verify Token"
+          name="token"
+        />
+      )}
       <Input
         changeHandler={onChange}
         name="location"

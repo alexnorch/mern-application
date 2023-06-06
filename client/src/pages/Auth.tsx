@@ -1,9 +1,10 @@
+import React from "react";
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 
 // Components
 import StyledAuth from "../components/styles/Auth.styled";
-import image from "../assets/images/undraw-image.svg";
+// import image from "../assets/images/undraw-image.svg";
 import { Logo, Alert, Input } from "../components";
 
 const initialValues = {
@@ -13,37 +14,32 @@ const initialValues = {
   confirmPassword: "",
 };
 
-const Auth = () => {
+const Auth: React.FC = () => {
   const [isMember, setIsMember] = useState(true);
   const [userValue, setUserValue] = useState(initialValues);
   const { authSubmit, isLoading, showAlert } = useAppContext();
 
-  const changeValue = (e) => {
+  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserValue((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  
-
   const submitForm = (e) => {
     e.preventDefault();
 
     const { email, password } = userValue;
 
-    if (isMember) {
-      authSubmit("login", { email, password });
-    } else {
-      authSubmit("register", userValue);
-    }
+    isMember
+      ? authSubmit("login", { email, password })
+      : authSubmit("register", userValue);
   };
 
   return (
     <StyledAuth>
       <form>
         {showAlert && <Alert />}
-        <Logo />
         <Input
           value={userValue.email}
           name="email"
@@ -95,7 +91,8 @@ const Auth = () => {
         </button>
       </form>
       <div className="image">
-        <img src={image} alt="Girl reads books" />
+        Image
+        {/* <img src={image} alt="Girl reads books" /> */}
       </div>
     </StyledAuth>
   );

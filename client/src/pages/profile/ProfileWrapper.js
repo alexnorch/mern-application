@@ -18,7 +18,8 @@ const links = [
 ];
 
 const ProfileWrapper = () => {
-  const { user, logoutUser, isEmailConfirmation, confirmEmail } = useAppContext();
+  const { user, logoutUser, isEmailConfirmation, confirmEmail } =
+    useAppContext();
 
   const srcImage =
     user.photo.length > 1
@@ -39,7 +40,8 @@ const ProfileWrapper = () => {
               <button
                 onClick={confirmEmail}
                 disabled={isEmailConfirmation}
-                className="btn">
+                className="btn"
+              >
                 Confirm e-mail
               </button>
             )}

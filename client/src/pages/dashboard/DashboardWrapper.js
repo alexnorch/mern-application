@@ -6,11 +6,11 @@ import StyledDashboardWrapper from "../../components/styles/DashboardWrapper.sty
 import { Menu, Navigation } from "../../components";
 
 const DashboardWrapper = () => {
-  const { isMenuOpen } = useAppContext()
+  const { isMenuOpen } = useAppContext();
   return (
     <StyledDashboardWrapper isMenuOpen={isMenuOpen}>
       <div className="left">
-        <Menu/>
+        <Menu />
       </div>
       <div className="right">
         <Navigation />

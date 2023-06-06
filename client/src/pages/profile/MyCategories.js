@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Input, Alert, Categories } from "../../components";
 
 const MyCategories = () => {
-  const [userCategory, setUserCategory] = useState({ title: '', color: '' })
-  const { addCategory, showAlert } = useAppContext()
+  const [userCategory, setUserCategory] = useState({ title: "", color: "" });
+  const { addCategory, showAlert } = useAppContext();
 
   return (
     <>
@@ -15,21 +15,34 @@ const MyCategories = () => {
       <h3>Create new category</h3>
       <StyledForm>
         <Input
-          changeHandler={(e) => setUserCategory((state) => ({ ...state, [e.target.name]: e.target.value }))}
+          changeHandler={(e) =>
+            setUserCategory((state) => ({
+              ...state,
+              [e.target.name]: e.target.value,
+            }))
+          }
           value={userCategory.title}
-          name='title'
+          name="title"
           labelText="Title"
-          placeholder="Type the title of the category" />
+          placeholder="Type the title of the category"
+        />
         <Input
-          changeHandler={(e) => setUserCategory((state) => ({ ...state, [e.target.name]: e.target.value }))}
+          changeHandler={(e) =>
+            setUserCategory((state) => ({
+              ...state,
+              [e.target.name]: e.target.value,
+            }))
+          }
           value={userCategory.color}
-          name='color'
+          name="color"
           labelText="Color"
-          placeholder="Type the color of the category" />
+          placeholder="Type the color of the category"
+        />
         <button
           onClick={() => addCategory(userCategory)}
           type="button"
-          className="btn">
+          className="btn"
+        >
           Create
         </button>
       </StyledForm>
